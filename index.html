@@ -1,7 +1,197 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .tab {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        .tab.active {
+            display: block;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #e0e0e0;
+        }
+
+        button:hover {
+            background-color: #d0d0d0;
+        }
+
+        button.selected {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        button.tab-btn.active {
+            background-color: #2196F3;
+            color: white;
+        }
+
+        .choice-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .character-info {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+    <button onclick="createNewCharacter()" id="newCharacterBtn">Create New Character</button>
+
+    <div class="tab-buttons">
+        <button class="tab-btn active" onclick="openTab(0)">Overview</button>
+        <button class="tab-btn" onclick="openTab(1)">Race</button>
+        <button class="tab-btn" onclick="openTab(2)">Class</button>
+    </div>
+
+    <div class="tab active" id="tab0">
+        <h2>Character Overview</h2>
+        <div class="character-info" id="characterInfo">
+            <p>No character created yet. Click "Create New Character" to begin.</p>
+        </div>
+    </div>
+
+    <div class="tab" id="tab1">
+        <h2>Choose Race</h2>
+        <div class="choice-buttons" id="raceButtons">
+            <button onclick="selectRace('Human')">Human</button>
+            <button onclick="selectRace('Dwarf')">Dwarf</button>
+            <button onclick="selectRace('Elf')">Elf</button>
+            <button onclick="selectRace('Halfling')">Halfling</button>
+            <button onclick="selectRace('Orc')">Orc</button>
+        </div>
+    </div>
+
+    <div class="tab" id="tab2">
+        <h2>Choose Class</h2>
+        <div class="choice-buttons" id="classButtons">
+            <button onclick="selectClass('Fighter')">Fighter</button>
+            <button onclick="selectClass('Specialist')">Specialist</button>
+            <button onclick="selectClass('Mystic')">Mystic</button>
+            <button onclick="selectClass('Mage')">Mage</button>
+        </div>
+    </div>
+
+    <script>
+        let currentCharacter = null;
+
+        function createNewCharacter() {
+            currentCharacter = {
+                race: null,
+                class: null
+            };
+            updateCharacterInfo();
+            clearSelections();
+            openTab(1); // Open race tab after creating new character
+        }
+
+        function openTab(tabIndex) {
+            // Hide all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById('tab' + tabIndex).classList.add('active');
+            
+            // Update tab buttons
+            document.querySelectorAll('.tab-btn').forEach((btn, index) => {
+                if (index === tabIndex) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+
+        function selectRace(race) {
+            if (!currentCharacter) {
+                alert('Please create a new character first!');
+                return;
+            }
+            
+            currentCharacter.race = race;
+            updateCharacterInfo();
+            updateRaceButtons();
+        }
+
+        function selectClass(characterClass) {
+            if (!currentCharacter) {
+                alert('Please create a new character first!');
+                return;
+            }
+            
+            currentCharacter.class = characterClass;
+            updateCharacterInfo();
+            updateClassButtons();
+        }
+
+        function updateCharacterInfo() {
+            const infoDiv = document.getElementById('characterInfo');
+            if (!currentCharacter) {
+                infoDiv.innerHTML = '<p>No character created yet. Click "Create New Character" to begin.</p>';
+                return;
+            }
+
+            let info = '<h3>Current Character</h3>';
+            info += `<p>Race: ${currentCharacter.race || 'Not selected'}</p>`;
+            info += `<p>Class: ${currentCharacter.class || 'Not selected'}</p>`;
+            infoDiv.innerHTML = info;
+        }
+
+        function updateRaceButtons() {
+            document.querySelectorAll('#raceButtons button').forEach(button => {
+                if (button.textContent === currentCharacter?.race) {
+                    button.classList.add('selected');
+                } else {
+                    button.classList.remove('selected');
+                }
+            });
+        }
+
+        function updateClassButtons() {
+            document.querySelectorAll('#classButtons button').forEach(button => {
+                if (button.textContent === currentCharacter?.class) {
+                    button.classList.add('selected');
+                } else {
+                    button.classList.remove('selected');
+                }
+            });
+        }
+
+        function clearSelections() {
+            document.querySelectorAll('.choice-buttons button').forEach(button => {
+                button.classList.remove('selected');
+            });
+        }
+    </script>
 </body>
 </html>
