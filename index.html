@@ -11,7 +11,7 @@
     <div class="container">
       <div class="characterManagement">
         <button onclick="showNewCharacterForm()" id="newCharacterBtn">
-          Create New Character
+          New Character
         </button>
         <button onclick="openCharacterSelector()" id="switchCharacterBtn">
           Character List
@@ -26,18 +26,22 @@
         <button onclick="saveCharacter()" id="saveCharacterBtn">
           Save Character
         </button>
-        <button onclick="saveCharacter()" id="pdfBtn">PDF</button>
       </div>
 
-      <div id="characterFormSection">
-        <input
-          type="text"
-          class="name-input"
-          id="characterName"
-          placeholder="Enter character name..."
-        />
+      <div id="characterFormSection" class="character-form-container">
+        <div class="name-input-container">
+          <input
+            type="text"
+            class="name-input"
+            id="characterName"
+            placeholder="Enter character name..."
+          />
+          <button class="refresh-name" onclick="generateRandomNameAndSave()">
+            🎲
+          </button>
+        </div>
         <button onclick="createNewCharacter()" id="createCharacterBtn">
-          Create Character
+          Create New Character
         </button>
       </div>
 
@@ -112,28 +116,28 @@
             <h3>Fighter</h3>
             <p>
               Masters of combat who rely on their physical prowess and tactical
-              training. High HP, armor proficiency.
+              training. High HP, high damage.
             </p>
           </div>
           <div class="choice-card" onclick="selectClass('Specialist')">
             <h3>Specialist</h3>
             <p>
-              Skilled individuals who excel at specific tasks. High skills,
-              special abilities, moderate combat ability.
+              Skilled individuals who excel at specific tasks. High skills, fast
+              movespeed.
             </p>
           </div>
           <div class="choice-card" onclick="selectClass('Mystic')">
             <h3>Mystic</h3>
             <p>
               Divine spellcasters who channel spiritual energy. Healing powers,
-              divine magic, moderate combat ability.
+              divine magic.
             </p>
           </div>
           <div class="choice-card" onclick="selectClass('Mage')">
             <h3>Mage</h3>
             <p>
               Masters of arcane magic who study the fundamental forces of
-              reality. Powerful spells, low HP and armor.
+              reality. Powerful spells, low HP.
             </p>
           </div>
         </div>
@@ -152,6 +156,16 @@
         <div class="modal-buttons">
           <button onclick="closeDeleteModal()">Cancel</button>
           <button onclick="deleteCharacter()" class="danger">Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="noNameModal" class="modal">
+      <div class="modal-content">
+        <p>Character needs a name!</p>
+        <div class="modal-buttons">
+          <button onclick="closeNoNameModal()">Ok</button>
+          <button onclick="newCharacterName()" class="random">Randomize</button>
         </div>
       </div>
     </div>

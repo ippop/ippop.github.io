@@ -5,29 +5,35 @@ let savedCharacters = JSON.parse(
 
 // Initial setup
 window.onload = function () {
-  document.getElementById("characterFormSection").style.display = "none";
+  document.getElementById("characterFormSection").style.display = "block";
   document.getElementById("deleteCharacterBtn").classList.add("disabled");
   updateSavedCharactersList();
   updateButtonStates();
+  generateRandomName();
 };
 
+// Creates new character unsaved, resets character selection
 function showNewCharacterForm() {
-  document.getElementById("characterFormSection").style.display = "block";
+  document.getElementById("characterFormSection").style.display = "block"; // TODO: probably can remove this
   document.getElementById("charactersTab").style.display = "none";
   document.getElementById("characterName").value = "";
   document.getElementById("characterName").focus();
+
+  // Deselect character and randomize a name
+  currentCharacter = null;
+  generateRandomName();
 }
 
 function createNewCharacter() {
-  const name = document.getElementById("characterName").value.trim();
-  if (!name) {
-    alert("Please enter a character name!");
-    return;
-  }
+  var name = document.getElementById("characterName").value.trim();
 
+  if (!name) { // Empty string? Generate a random name
+    generateRandomName();
+    name = document.getElementById("characterName").value.trim();
+  }
   // Check if name already exists
   if (savedCharacters.some((char) => char.name === name)) {
-    alert("A character with this name already exists!");
+    alert("A character with this name already exists!"); // TODO: option to overwrite or save new?
     return;
   }
 
@@ -46,7 +52,6 @@ function createNewCharacter() {
     JSON.stringify(savedCharacters)
   );
 
-  document.getElementById("characterFormSection").style.display = "none";
   updateCharacterInfo();
   clearSelections();
   openTab(1);
@@ -66,7 +71,7 @@ function generateStats() {
   return baseStats;
 }
 
-function rollStat() {
+function rollStat() { // TODO: update to balance final roll. Let player switch stats, always default to order of largest first (str). For character generation have them prioritize based on class
   // Roll 4d6, drop lowest
   const rolls = Array.from(
     { length: 4 },
@@ -78,7 +83,7 @@ function rollStat() {
 
 function saveCharacter() {
   if (!currentCharacter) {
-    alert("No character to save!");
+    //alert("No character to save!");
     return;
   }
 
@@ -91,16 +96,44 @@ function saveCharacter() {
       "savedCharacters",
       JSON.stringify(savedCharacters)
     );
-    alert("Character updated successfully!");
+    //alert("Character updated successfully!");
   } else {
-    alert("Error: Character not found in saved list!");
+    //alert("Error: Character not found in saved list!");
   }
 
   updateSavedCharactersList();
 }
 
+// Function that gets called when text is entered
+function nameInputUpdate() {
+  // No character do nothing
+  if(!currentCharacter) {
+    return;
+  }
+  currentCharacter.name = document.getElementById("characterName").value.trim();
+  if(!currentCharacter.name) {
+    document.getElementById("noNameModal").style.display =
+    "flex";
+    //alert("Character needs a name!");
+    return;
+  }
+  // Just update character name
+  saveCharacter();
+}
+
+function newCharacterName() {
+  generateRandomName();
+  currentCharacter.name = document.getElementById("characterName").value.trim();
+  saveCharacter();
+  closeNoNameModal();
+}
+
+// Adding an event listener to the input field to call onInputChange when text is typed
+const inputField = document.getElementById("characterName");
+inputField.addEventListener("blur", nameInputUpdate); // "Input" for every text change, "Blur" for every deselect input for less spam
+
 function openCharacterSelector() {
-  document.getElementById("characterFormSection").style.display = "none";
+  document.getElementById("characterFormSection").style.display = "block"; // TODO: probably can remove this, used to be none
   const charactersTab = document.getElementById("charactersTab");
 
   if (charactersTab.style.display === "none") {
@@ -120,6 +153,8 @@ function loadCharacter(id) {
     updateClassButtons();
     openTab(0);
     updateButtonStates();
+
+    document.getElementById('characterName').value = currentCharacter.name;
 
     // Highlight the selected character
     document.querySelectorAll(".saved-character").forEach((el) => {
@@ -143,6 +178,11 @@ function showDeleteConfirmation() {
 
 function closeDeleteModal() {
   document.getElementById("deleteConfirmationModal").style.display =
+    "none";
+}
+
+function closeNoNameModal() {
+  document.getElementById("noNameModal").style.display =
     "none";
 }
 
@@ -230,32 +270,33 @@ function openTab(tabIndex) {
   });
 }
 
+// Changes race of the current selected character to the "race" input
 function selectRace(race) {
   if (!currentCharacter) {
-    alert("Please create a new character first!");
-    return;
+    createNewCharacter();
   }
+  currentCharacter.race = race
 
-  currentCharacter.race = race;
   updateCharacterInfo();
   updateRaceButtons();
   saveCharacter(); // Auto-save when race is selected
-  openTab(2);
+  openTab(2); // TODO: make it switch to next tab from TODO list. 0 when complete. Toggle to stay on page?
 }
 
+// Changes class of current selected character to the "characterClass" input
 function selectClass(characterClass) {
   if (!currentCharacter) {
-    alert("Please create a new character first!");
-    return;
+    createNewCharacter();
   }
+  currentCharacter.class = characterClass
 
-  currentCharacter.class = characterClass;
   updateCharacterInfo();
   updateClassButtons();
   saveCharacter(); // Auto-save when class is selected
-  openTab(0);
+  openTab(0); // TODO: make it switch to next tab from TODO list. 0 when complete
 }
 
+// Updates info on overview tab
 function updateCharacterInfo() {
   const infoDiv = document.getElementById("characterInfo");
   if (!currentCharacter) {
@@ -284,6 +325,7 @@ function updateCharacterInfo() {
   infoDiv.innerHTML = info;
 }
 
+// updates race buttons if selected or unselected
 function updateRaceButtons() {
   document
     .querySelectorAll("#raceButtons .choice-card")
@@ -316,4 +358,69 @@ function clearSelections() {
   document.querySelectorAll(".choice-card").forEach((card) => {
     card.classList.remove("selected");
   });
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////// Name Generator ////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+const firstNames = [
+    "Aldrich", "Balthazar", "Cedric", "Darius", "Edmund", "Finnegan", "Galahad", "Henrik", "Igor", "Jasper",
+    "Kendrick", "Lysander", "Magnus", "Nathaniel", "Octavius", "Perseus", "Quinlan", "Roderick", "Sebastian", "Thaddeus",
+    "Ulric", "Viktor", "Wilhelm", "Xavier", "Yorick", "Zacharias", "Alaric", "Benedict", "Constantine", "Dominic",
+    "Eleanor", "Freya", "Guinevere", "Helena", "Isolde", "Juliana", "Katerina", "Lucinda", "Marigold", "Nimue",
+    "Ophelia", "Primrose", "Rosalind", "Sylvanna", "Theodora", "Ursula", "Violet", "Wilhelmina", "Xandra", "Yseult",
+    "Ariadne", "Beatrix", "Celestia", "Delphine", "Evangeline", "Fiona", "Gwendolyn", "Gwynex", "Heloise", "Iris", "Jessamine",
+    "Katriona", "Lyra", "Meridian", "Nephele", "Odette", "Penelope", "Quinn", "Rhiannon", "Seraphina", "Thessaly",
+    "Undine", "Valeria", "Wynne", "Xiomara", "Yvette", "Zelda", "Ademar", "Baudoin", "Clovis", "Draven",
+    "Eldred", "Falco", "Gareth", "Hadrian", "Ignatius", "Jorah", "Kestrel", "Leander", "Malachi", "Nikolai",
+    "Orion", "Peregrine", "Quintus", "Raphael", "Silas", "Tristan", "Uther", "Varys", "Wolfram", "Xerxes",
+    "Yoren", "Zephyr", "Aldwin", "Blackwood", "Caspian", "Drake", "Evander", "Falcon", "Galamir", "Hawthorne", "Harris",
+    "Laufrey", "Faye", "Magni", "Brodi", "Gadd", "Gertrud", "Torsten", "Tård", "Örjan", "Ulf" , "Klaes", "Tor", "Tyr", "Anton",
+    "Geoffrey", "Stig", "Stefan", "Jakob", "Oden", "Mordecai"
+];
+
+const lastNames = [
+    "Alfheim", "Blackwood", "Crowley", "Duskfall", "Elderhart", "Foxglove", "Greywind", "Hawthorne", "Ironweave", "Jadestar", "Kingsley",
+    "Lightbringer", "Moonshadow", "Nightshade", "Oakenshield", "Phoenixdown", "Queensbury", "Ravenscroft", "Silvermark", "Thornheart", "Umbermist",
+    "Valorheart", "Winterborne", "Wyvernguard", "Yellowcloak", "Zephyrheart", "Ashenheart", "Bolderhart", "Crimsonweave", "Dragonbane", "Ebonhart",
+    "Frostweaver", "Goldencrest", "Heavensblade", "Iceforge", "Jesterly", "Knightfall", "Lionheart", "Mistweaver", "Northstar", "Obsidianforge",
+    "Proudspear", "Queensgard", "Runeheart", "Stormwind", "Thornguard", "Underhill", "Valekeeper", "Warweaver", "Xenohart", "Yewkeeper",
+    "Aldermark", "Blackthorn", "Crestfall", "Darkweaver", "Eldermark", "Flameheart", "Greymark", "Highwind", "Ironheart", "Jadeweaver",
+    "Kingsmark", "Lightweaver", "Moonweaver", "Nightweaver", "Oakenmark", "Phoenixheart", "Queensmark", "Ravenmark", "Silverweaver", "Thornmark",
+    "Darksworth", "Blackmantle", "Stormweaver", "Frostbane", "Shadowheart", "Dawnkeeper", "Moonblade", "Steelwind", "Wraithbane", "Thundermark",
+    "Grimweaver", "Starweaver", "Ghostheart", "Frostweave", "Shadowmark", "Dawnweaver", "Moonkeeper", "Steelheart", "Wraithweaver", "Thunderheart",
+    "Dreadweaver", "Stormheart", "Ghostmark", "Frostmark", "Shadowweaver", "Dawnmark", "Moonweave", "Steelmark", "Wraithmark", "Thunderweave"
+];
+
+const honorifics = ["Sir", "Lady", "Lord", "Dame", "Master", "Mistress", "Dr", "Elder"];
+const particles = ["von", "van", "de", "af", "der", "of"];
+
+function generateRandomName() {
+    const useHonorific = Math.random() < 0.1; // 10% chance
+    const useParticle = Math.random() < 0.1;  // 10% chance
+    
+    let name = "";
+    
+    if (useHonorific) {
+        name += honorifics[Math.floor(Math.random() * honorifics.length)] + " ";
+    }
+    
+    name += firstNames[Math.floor(Math.random() * firstNames.length)];
+    
+    if (useParticle) {
+        name += " " + particles[Math.floor(Math.random() * particles.length)];
+    }
+    
+    name += " " + lastNames[Math.floor(Math.random() * lastNames.length)];
+    
+    document.getElementById('characterName').value = name;
+}
+
+function generateRandomNameAndSave() {
+  generateRandomName();
+  if(currentCharacter) {
+    currentCharacter.name = document.getElementById('characterName').value;
+    saveCharacter();
+  }
 }

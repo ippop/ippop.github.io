@@ -6,11 +6,12 @@
     --text: #333333;
     --border: #e0e0e0;
     --danger: #F44336;
+    --random: #10b6c9;
 }
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    max-width: 1000px;
+    max-width: 1400px;
     margin: 20px auto;
     padding: 20px;
     background-color: var(--background);
@@ -86,6 +87,15 @@ button.danger:hover {
     background-color: #d32f2f;
 }
 
+button.random {
+    background-color: var(--random);
+    color: white;
+}
+
+button.random:hover {
+    background-color: #39cddd;
+}
+
 button.disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -149,11 +159,10 @@ button.disabled:hover {
 }
 
 .name-input {
-    width: 100%;
+    width: 98%;
     padding: 12px;
     border: 1px solid var(--border);
     border-radius: 6px;
-    margin-bottom: 20px;
     font-size: 16px;
 }
 
@@ -223,4 +232,96 @@ button.disabled:hover {
     justify-content: flex-end;
     gap: 10px;
     margin-top: 20px;
+}
+
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* ///////////////////////////////////////////////////////// Name Generator /////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+
+.name-input-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.character-form-container {
+    margin-bottom: 10px;
+}
+
+.refresh-name {
+    padding: 12px;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.refresh-name:hover {
+    animation: spin 0.5s ease;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* ///////////////////////////////////////////////////////// Choice List ////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+
+.main-content {
+    display: flex;
+    width: 100%;
+}
+
+.tabs-container {
+    flex: 1;
+}
+
+.choice-list-container {
+    width: 250px;
+    margin-left: 20px;
+    border-left: 1px solid #ccc;
+    padding-left: 20px;
+}
+
+.choice-list-item {
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.choice-list-item:hover {
+    background-color: #e0e0e0;
+}
+
+.choice-list-item.completed {
+    background-color: #d4edda;
+    border-left: 4px solid #28a745;
+}
+
+.level-controls {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.level-controls span {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.level-up-btn {
+    background-color: #6c5ce7;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.level-up-btn:hover {
+    background-color: #5b4ac2;
 }
