@@ -727,7 +727,9 @@ const firstNames = [
     "Laufrey", "Faye", "Magni", "Brodi", "Gadd", "Gertrud", "Torsten", "Tård", "Örjan", "Ulf" , "Klaes", "Thor", "Tyr", "Anton",
     "Geoffrey", "Stig", "Stefan", "Jakob", "Oden", "Mordecai", "Gustavo", "Suleman", "Wilhelm", "Kaiser", "Bernard", "Damien",
     "Declan", "Dedan", "Lumbar", "Stephano", "Guiseppe", "Slick", "Frank", "John", "Johnny", "Fred", "Dan", "Danny", "Morgan",
-    "Rick", "Tyrone", "Shank", "Daud", "Doug", "Dexter", "Arthur", "Ping", "Ming", "Anthony", "Alphonse", "Vergil", "Basil"
+    "Rick", "Tyrone", "Shank", "Daud", "Doug", "Dexter", "Arthur", "Ping", "Ming", "Anthony", "Alphonse", "Vergil", "Basil",
+    "George", "Michael", "François", "Jack", "James", "Joe", "Moe", "Lenny", "Karl", "Franz", "Helmut", "Hermann", "Ike", "Johan",
+    "Wolfgang", "Sten", "Bob", "Robert"
 ];
 
 const lastNames = [
@@ -742,7 +744,7 @@ const lastNames = [
     "Grimweaver", "Starweaver", "Ghostheart", "Frostweave", "Shadowmark", "Dawnweaver", "Moonkeeper", "Steelheart", "Wraithweaver", "Thunderheart",
     "Dreadweaver", "Stormheart", "Ghostmark", "Frostmark", "Shadowweaver", "Dawnmark", "Moonweave", "Steelmark", "Wraithmark", "Thunderweave", "Goldenstar",
     "Rosenkrans", "Duchel", "Swordhill", "Blackthorn", "Ring", "Lodbrok", "Wartooth", "Bourdain", "Hildebrand", "Hellelil", "Nightguard", "MacFlaire",
-    "Strong",
+    "Strong", "Stockton", "Hood", "Goethe", "Kafka",
     "Archer", "Angler", "Actor", "Artist", "Carpenter", "Cantor", "Cutter", "Cook", "Coachman", "Courier", "Courtmage", "Courtier", "Captain", "Cleric", "Baker",
     "Bankman", "Butcher", "Brewer", "Baron", "Bandit", "Boatsman", "Bookbinder", "Bishop", "Driver", "Deacon", "Dean", "Deckhand", "Falconer", "Farmer",
     "Fortuneteller", "Foreman", "Healer", "Judge", "Lord", "Luthier", "Mariner", "Marshall", "Merchant", "Messanger", "Miller", "Milliner", "Miner", "Monk",
@@ -760,9 +762,11 @@ const nicknames = [`"The Shiv"`, `"Booty"`, `"Boot"`, `"Slick"`, `"Moon-eye"`, `
   `"Boneless"`, `"Spineless"`, `"Bloodaxe"`, `"Stoneskin"`, `"Blacktooth"`, `"No teeth"`, `"Gums"`, `"Slippy"`,  `"Stonebiter"`, `"Heartless"`, `"Wormspit"`, `"Snaketongue"`,
   `"Bloodknuckle"`, `"The Mountain"`, `"Fatty"`, `"Four Toe"`, `"Ironfist"`, `"Royal"`, `"Face"`, `"Muscles"`, `"Fishbone"`, `"Smalls"`, `"Crabapple"`, `"Touchy"`, `"Ironside"`,
   `"Morningstar"`, `"Glasseye"`, `"Death"`, `"Knapsack"`, `"Bloody Murder"`, `"The River"`, `"Scary"`, `"Snowman"`, `"The Bald"`, `"The Oar"`, `"Cartwheel"`, `"The Mast"`,
-  `"The Man"`, `"Dirk"`, `"The Knife"`, `"Claymore"`, `"Lucky"`, `"Chip"`, `"Rook"`, `"Ace"`,
+  `"The Man"`, `"Dirk"`, `"The Knife"`, `"Claymore"`, `"Lucky"`, `"Chip"`, `"Rook"`, `"Ace"`, `"Maverick"`, `"Cotton"`, `"Iceman"`, `"Scarecrow"`, `"Wildfire"`, `"Crazy Eyes"`,
+  `"White Eye"`, `"Pale Rider"`, `"Deathless"`,
   `"The Wolf"`, `"The Bear"`, `"The Jackal"`, `"The Wasp"`, `"The Cod"`, `"The Fish"`, `"The Duck"`, `"The Beetle"`, `"The Harpy"`, `"The Penguin"`, `"The Crab"`, `"The Crow"`,
-  `"The Lion"`, `"The Eagle"`, `"The Hawk"`, `"The Antlion"`, `"The Termite"`];
+  `"The Lion"`, `"The Eagle"`, `"The Hawk"`, `"The Antlion"`, `"The Termite"`, `"The Fly"`, `"The Spider"`,`"Spider"`, `"Bear"`, `"Wolf"`, `"Wasp"`, `"Fly"`, `"The Bat"`,
+  `"The Barracuda"`, `"The Mole"`, `"The Man"`];
 
 function generateRandomName() {
     const useHonorific = Math.random() < 0.1; // 10% chance
