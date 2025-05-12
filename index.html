@@ -53,92 +53,315 @@
         <div id="savedCharactersList" class="character-list"></div>
       </div>
 
-      <div class="tab-buttons">
-        <button class="tab-btn active" onclick="openTab(0)">Overview</button>
-        <button class="tab-btn" onclick="openTab(1)">Race</button>
-        <button class="tab-btn" onclick="openTab(2)">Class</button>
-      </div>
+      <div class="main-content">
+        <div class="tabs-container">
+          <div class="tab-buttons">
+            <button
+              class="tab-btn Overview active"
+              onclick="openTab('Overview')"
+            >
+              Overview
+            </button>
+            <button class="tab-btn Race" onclick="openTab('Race')">Race</button>
+            <button class="tab-btn Class" onclick="openTab('Class')">
+              Class
+            </button>
+            <button class="tab-btn Style" onclick="openTab('Style')">
+              Style
+            </button>
+            <button class="tab-btn Skills" onclick="openTab('Skills')">
+              Skills
+            </button>
+            <button
+              class="tab-btn Proficiencies"
+              onclick="openTab('Proficiencies')"
+            >
+              Proficiencies
+            </button>
+            <button class="tab-btn Items" onclick="openTab('Items')">
+              Items
+            </button>
+            <button class="tab-btn Stats" onclick="openTab('Stats')">
+              DEBUG STUFF
+            </button>
+          </div>
 
-      <div class="tab active" id="tab0">
-        <h2>Character Overview</h2>
-        <div class="character-info" id="characterInfo">
-          <p>
-            No character created yet. Click "Create New Character" to begin.
-          </p>
+          <div class="tab active" id="tab-Overview">
+            <h2>Character Overview</h2>
+            <div class="level-controls">
+              <span id="characterLevel">Level: 1</span>
+              <button onclick="levelUp()" class="level-up-btn">Level Up</button>
+            </div>
+            <div class="character-info" id="characterInfo">
+              <p>
+                No character created yet. Click "Create New Character" to begin.
+              </p>
+            </div>
+          </div>
+
+          <div class="tab" id="tab-Race">
+            <h2>Choose Race</h2>
+            <div class="choice-buttons" id="raceButtons">
+              <div class="choice-card" onclick="selectRace('Human')">
+                <h3>Human</h3>
+                <p>
+                  Versatile and adaptable, humans excel in any role they choose.
+                  They receive a +1 to all attributes.
+                </p>
+              </div>
+              <div class="choice-card" onclick="selectRace('Dwarf')">
+                <h3>Dwarf</h3>
+                <p>
+                  Sturdy and resilient, dwarves are natural warriors. +2
+                  Constitution, +1 Strength, -1 Charisma.
+                </p>
+              </div>
+              <div class="choice-card" onclick="selectRace('Elf')">
+                <h3>Elf</h3>
+                <p>
+                  Graceful and magical, elves are natural spellcasters. +2
+                  Intelligence, +1 Dexterity, -1 Constitution.
+                </p>
+              </div>
+              <div class="choice-card" onclick="selectRace('Halfling')">
+                <h3>Halfling</h3>
+                <p>
+                  Small but lucky, halflings make excellent specialists. +2
+                  Dexterity, +1 Charisma, -1 Strength.
+                </p>
+              </div>
+              <div class="choice-card" onclick="selectRace('Orc')">
+                <h3>Orc</h3>
+                <p>
+                  Powerful and intimidating, orcs are born warriors. +2
+                  Strength, +1 Constitution, -1 Intelligence.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab" id="tab-Class">
+            <h2>Choose Class</h2>
+            <div class="choice-buttons" id="classButtons">
+              <div class="choice-card" onclick="selectClass('Fighter')">
+                <h3>Fighter</h3>
+                <span class="level"></span>
+                <p>
+                  Masters of combat who rely on their physical prowess and
+                  tactical training. High HP, high damage.
+                </p>
+              </div>
+              <div class="choice-card" onclick="selectClass('Specialist')">
+                <h3>Specialist</h3>
+                <span class="level"></span>
+                <p>
+                  Skilled individuals who excel at specific tasks. High skills,
+                  fast movespeed.
+                </p>
+              </div>
+              <div class="choice-card" onclick="selectClass('Cleric')">
+                <h3>Cleric</h3>
+                <span class="level"></span>
+                <p>
+                  Divine spellcasters who channel spiritual energy. Healing
+                  powers, divine magic.
+                </p>
+              </div>
+              <div class="choice-card" onclick="selectClass('Mage')">
+                <h3>Mage</h3>
+                <span class="level"></span>
+                <p>
+                  Masters of arcane magic who study the fundamental forces of
+                  reality. Powerful spells, low HP.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab" id="tab-Style">
+            <h2>Choose Style</h2>
+            <div class="choice-buttons" id="styleButtons">
+              <div class="choice-card" onclick="selectClass('Ironclad')">
+                <h3>Ironclad</h3>
+                <p>
+                  Masters of combat who rely on their physical prowess and
+                  tactical training. High HP, high damage.
+                </p>
+              </div>
+              <div class="choice-card" onclick="selectClass('Warrior')">
+                <h3>Warrior</h3>
+                <p>
+                  Skilled individuals who excel at specific tasks. High skills,
+                  fast movespeed.
+                </p>
+              </div>
+              <div class="choice-card" onclick="selectClass('Pilgrim')">
+                <h3>Pilgrim</h3>
+                <p>
+                  Divine spellcasters who channel spiritual energy. Healing
+                  powers, divine magic.
+                </p>
+              </div>
+              <div class="choice-card" onclick="selectClass('Polymath')">
+                <h3>Polymath</h3>
+                <p>
+                  Masters of arcane magic who study the fundamental forces of
+                  reality. Powerful spells, low HP.
+                </p>
+              </div>
+              <div class="choice-card" onclick="selectClass('Spellcaster')">
+                <h3>Spellcaster</h3>
+                <p>
+                  Masters of arcane magic who study the fundamental forces of
+                  reality. Powerful spells, low HP.
+                </p>
+              </div>
+              <div class="choice-card" onclick="selectClass('Monk')">
+                <h3>Monk</h3>
+                <p>
+                  Masters of arcane magic who study the fundamental forces of
+                  reality. Powerful spells, low HP.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab" id="tab-Skills">
+            <h2>Choose Skill Proficiencies</h2>
+            <div class="choice-buttons" id="skillButtons">
+              <div class="skill-category">
+                <h3>Strength</h3>
+                <div class="choice-card" onclick="selectClass('Athletics')">
+                  <h3>Athletics</h3>
+                </div>
+              </div>
+              <div class="skill-category">
+                <h3>Dexterity</h3>
+                <div class="choice-card" onclick="selectClass('Athletics')">
+                  <h3>Acrobatics</h3>
+                </div>
+                <div class="choice-card" onclick="selectClass('Athletics')">
+                  <h3>Sleight of Hand</h3>
+                </div>
+                <div class="choice-card" onclick="selectClass('Athletics')">
+                  <h3>Stealth</h3>
+                </div>
+              </div>
+              <div class="skill-category">
+                <h3>Intelligence</h3>
+                <div class="choice-card" onclick="selectClass('Athletics')">
+                  <h3>Arcana</h3>
+                </div>
+                <div class="choice-card" onclick="selectClass('Athletics')">
+                  <h3>History</h3>
+                </div>
+                <div class="choice-card" onclick="selectClass('Athletics')">
+                  <h3>Investigation</h3>
+                </div>
+                <div class="choice-card" onclick="selectClass('Athletics')">
+                  <h3>Nature</h3>
+                </div>
+                <div class="choice-card" onclick="selectClass('Athletics')">
+                  <h3>Religion</h3>
+                </div>
+              </div>
+              <div class="skill-category">
+                <h3>Wisdom</h3>
+                <div class="choice-card" onclick="selectClass('Athletics')">
+                  <h3>Animal Handling</h3>
+                </div>
+                <div class="choice-card" onclick="selectClass('Athletics')">
+                  <h3>Insight</h3>
+                </div>
+                <div class="choice-card" onclick="selectClass('Athletics')">
+                  <h3>Medicine</h3>
+                </div>
+                <div class="choice-card" onclick="selectClass('Athletics')">
+                  <h3>Perception</h3>
+                </div>
+                <div class="choice-card" onclick="selectClass('Athletics')">
+                  <h3>Survival</h3>
+                </div>
+              </div>
+              <div class="skill-category">
+                <h3>Charisma</h3>
+                <div class="choice-card" onclick="selectClass('Athletics')">
+                  <h3>Deception</h3>
+                </div>
+                <div class="choice-card" onclick="selectClass('Athletics')">
+                  <h3>Intimidation</h3>
+                </div>
+                <div class="choice-card" onclick="selectClass('Athletics')">
+                  <h3>Performance</h3>
+                </div>
+                <div class="choice-card" onclick="selectClass('Athletics')">
+                  <h3>Persuasion</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab" id="tab-Proficiencies">
+            <h2>Choose Other Proficiencies</h2>
+            <div class="choice-buttons" id="proficiencyButtons">
+              <div class="skill-category">
+                <h3>Strength</h3>
+                <div class="choice-card" onclick="selectClass('Athletics')">
+                  <h3>Athletics</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab" id="tab-Items">
+            <h2>Choose Equipment</h2>
+            <div class="choice-buttons" id="itemButtons">
+              <div class="skill-category">
+                <h3>Strength</h3>
+                <div class="choice-card" onclick="selectClass('Athletics')">
+                  <h3>Athletics</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hidden tabs -->
+
+          <div class="tab" id="tab-Stats">
+            <h2>Choose Ability Score Improvement</h2>
+            <div class="choice-buttons" id="statButtons">
+              <div class="choice-card" onclick="selectStat('Strength')">
+                <h3 class="stat-display">Strength</h3>
+                <span class="stat-number" id="stat-value-strength">0</span>
+              </div>
+              <div class="choice-card" onclick="selectStat('Dexterity')">
+                <h3 class="stat-display">Dexterity</h3>
+                <span class="stat-number" id="stat-value-dexterity">0</span>
+              </div>
+              <div class="choice-card" onclick="selectStat('Constitution')">
+                <h3 class="stat-display">Constitution</h3>
+                <span class="stat-number" id="stat-value-constitution">0</span>
+              </div>
+              <div class="choice-card" onclick="selectStat('Intelligence')">
+                <h3 class="stat-display">Intelligence</h3>
+                <span class="stat-number" id="stat-value-intelligence">0</span>
+              </div>
+              <div class="choice-card" onclick="selectStat('Wisdom')">
+                <h3 class="stat-display">Wisdom</h3>
+                <span class="stat-number" id="stat-value-wisdom">0</span>
+              </div>
+              <div class="choice-card" onclick="selectStat('Charisma')">
+                <h3 class="stat-display">Charisma</h3>
+                <span class="stat-number" id="stat-value-charisma">0</span>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div class="tab" id="tab1">
-        <h2>Choose Race</h2>
-        <div class="choice-buttons" id="raceButtons">
-          <div class="choice-card" onclick="selectRace('Human')">
-            <h3>Human</h3>
-            <p>
-              Versatile and adaptable, humans excel in any role they choose.
-              They receive a +1 to all attributes.
-            </p>
-          </div>
-          <div class="choice-card" onclick="selectRace('Dwarf')">
-            <h3>Dwarf</h3>
-            <p>
-              Sturdy and resilient, dwarves are natural warriors. +2
-              Constitution, +1 Strength, -1 Charisma.
-            </p>
-          </div>
-          <div class="choice-card" onclick="selectRace('Elf')">
-            <h3>Elf</h3>
-            <p>
-              Graceful and magical, elves are natural spellcasters. +2
-              Intelligence, +1 Dexterity, -1 Constitution.
-            </p>
-          </div>
-          <div class="choice-card" onclick="selectRace('Halfling')">
-            <h3>Halfling</h3>
-            <p>
-              Small but lucky, halflings make excellent specialists. +2
-              Dexterity, +1 Charisma, -1 Strength.
-            </p>
-          </div>
-          <div class="choice-card" onclick="selectRace('Orc')">
-            <h3>Orc</h3>
-            <p>
-              Powerful and intimidating, orcs are born warriors. +2 Strength, +1
-              Constitution, -1 Intelligence.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="tab" id="tab2">
-        <h2>Choose Class</h2>
-        <div class="choice-buttons" id="classButtons">
-          <div class="choice-card" onclick="selectClass('Fighter')">
-            <h3>Fighter</h3>
-            <p>
-              Masters of combat who rely on their physical prowess and tactical
-              training. High HP, high damage.
-            </p>
-          </div>
-          <div class="choice-card" onclick="selectClass('Specialist')">
-            <h3>Specialist</h3>
-            <p>
-              Skilled individuals who excel at specific tasks. High skills, fast
-              movespeed.
-            </p>
-          </div>
-          <div class="choice-card" onclick="selectClass('Mystic')">
-            <h3>Mystic</h3>
-            <p>
-              Divine spellcasters who channel spiritual energy. Healing powers,
-              divine magic.
-            </p>
-          </div>
-          <div class="choice-card" onclick="selectClass('Mage')">
-            <h3>Mage</h3>
-            <p>
-              Masters of arcane magic who study the fundamental forces of
-              reality. Powerful spells, low HP.
-            </p>
+        <div class="choice-list-container">
+          <h3>Choice List</h3>
+          <div id="choiceList">
+            <!-- Choice list items will be dynamically added here -->
           </div>
         </div>
       </div>
